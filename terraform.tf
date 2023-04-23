@@ -40,10 +40,9 @@ resource "null_resource" "ec2_application_deployed" {
     }
     inline = [
       "sudo apt update",
-      "echo \"Y\" | sudo apt-get install openjdk-17-jdk",
-      "echo \"Y\" | sudo apt-get install gradle=7.6.1",
-      "if [ -d \"${local.project_name}\" ]; then cd \"${local.project_name}\" && git pull; else git clone ${local.git_repo_url}; fi",
-      "./gradlew bootRun"
+      "docker stop $(docker ps -a -q)",
+      "docker pull ${local.docker_user_name}/${local.project_name}:${local.docker_version}",
+      "docker run  ${local.docker_user_name}/${local.project_name}:${local.docker_version}",
     ]
   }
   provisioner "local-exec" {

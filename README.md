@@ -61,7 +61,17 @@ A backend Kotlin app that integrates with openAI's image services.
         For the newly created Instance, change the security group inbound and outbound rules so that they can recieve all TCP communication
 
 
-### Terraform
+### Deploy manually
+    ### SSH into the EC2 instance
+        ssh -i {path_to_the_pem_file_for_the_key_pair_you_created_when_you_created_the_instance} {instance_user}@{instance_ip_address}
+    ### Set up docker on the EC2 instance
+    ### Pull the image from docker hub
+        docker pull {docker_hub_username}/{project_name}:{version}
+    ### Run the image
+        docker run {image_id}
+
+
+### Terraform (Experimental
     ### Install Terraform if it's not already installed
     ### In the project root directory, run the following commands
     - terraform init or terraform init -upgrade
