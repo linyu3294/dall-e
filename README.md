@@ -7,7 +7,7 @@ A backend Kotlin app that integrates with openAI's image services.
     Gradle 7.6.1
     Springboot 3.0.6
 
-## To Build the app locally
+## To Build the app locally (This will create a jar file in the build/libs directory)
     ./gradlew clean build
 
 ## To Run the app locally
@@ -17,7 +17,29 @@ A backend Kotlin app that integrates with openAI's image services.
 
 ## Deploying the app to an AWS EC2 Instance locally
 
-    ### AWS prerequisites
+###  Building an image with Docker and uploading it to Docker Hub
+
+    ### Install Docker if it's not already installed
+    ### Included in the root project are three files
+        - Dockerfile
+        - docker-compose.yml
+        - docker-push-image.sh
+    ### Run the following command
+        ./docker-push-image.sh (You made ned to run chmod +x docker-push-image.sh first to make the file executable)
+    ### This bash script will do the following
+        -Run ./gradlew clean build to build the app freshly
+        -Build a runnable jar file in the build/libs directory
+        -Build a docker image with the jar file
+        -Build a docker image for platform linux/amd64
+        -Using openjdk:17-jdk-slim
+        -Target port 8080 on the host machine
+        -Run the image locally to test if it works
+        -PAUSE TO READ HERE: If the image runs successfully, the server will be running on port 8080
+            You can saftly stop the server by pressing Ctrl + C
+        -Then you will be prompted to enter your docker hub username and password
+        -Once you enter your credentials, the image will be pushed to your docker hub account
+
+### AWS prerequisites
     - An IAM account user account in a group that has AdministratorAccess permissions
     
     - IAM user account access key (This will be required to be passed in as a local variable to Terraform.tf)
@@ -38,6 +60,8 @@ A backend Kotlin app that integrates with openAI's image services.
             {instance_ip_address} (Found when navigating EC2 > Instances > {click on Instance ID} > "Connect to Instance" Button > "EC2 Instance Connect" tab)
         For the newly created Instance, change the security group inbound and outbound rules so that they can recieve all TCP communication
 
+
+### Terraform
     ### Install Terraform if it's not already installed
     ### In the project root directory, run the following commands
     - terraform init or terraform init -upgrade
