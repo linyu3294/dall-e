@@ -49,5 +49,23 @@ tasks.withType<Jar> {
     }
 }
 
+tasks.bootRun {
+    main = "com.later.dalle.DalleApplicationKt"
+}
+
+tasks.withType<Jar> {
+    // Otherwise you'll get a "No main manifest attribute" error
+    manifest {
+        attributes["Main-Class"] = "com.later.dalle.DalleApplicationKt"
+    }
+    // To avoid the duplicate handling strategy error
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    // To add all the dependencies
+    from(sourceSets.main.get().output)
+    dependsOn(configurations.runtimeClasspath)
+    from({
+        configurations.runtimeClasspath.get().filter { it.name.endsWith("jar") }.map { zipTree(it) }
+    })
+}
 
 

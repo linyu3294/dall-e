@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  app:
+    image: dalle
+    command: java -jar dalle.jar
+    ports:
+      - "8080:8080"
+    environment:
+      - JAVA_OPTS=-Xmx256m
+    networks:
+      - app-net
