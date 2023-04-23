@@ -39,18 +39,10 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
-tasks.bootRun {
-    main = "com.later.dalle.DalleApplicationKt"
-}
-
 tasks.withType<Jar> {
     manifest {
         attributes["Main-Class"] = "com.later.dalle.DalleApplicationKt"
     }
-}
-
-tasks.bootRun {
-    main = "com.later.dalle.DalleApplicationKt"
 }
 
 tasks.withType<Jar> {

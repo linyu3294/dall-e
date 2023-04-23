@@ -5,14 +5,18 @@ A backend Kotlin app that integrates with openAI's image services.
 ## Dependencies
     Java 17
     Gradle 7.6.1
-    Springboot 2.6.1
+    Springboot 3.0.6
 
 ## To Build the app locally
     ./gradlew clean build
+
 ## To Run the app locally
     ./gradlew bootRun
+     or
+    java -jar build/libs/{name of the jar}.jar
 
 ## Deploying the app to an AWS EC2 Instance locally
+
     ### AWS prerequisites
     - An IAM account user account in a group that has AdministratorAccess permissions
     
@@ -32,6 +36,7 @@ A backend Kotlin app that integrates with openAI's image services.
             {instance_user} (Most likely ec2-user as that seems to the be the default)
             {instance_type} (In our case, we created a t2.micro, but this is just a test instance)
             {instance_ip_address} (Found when navigating EC2 > Instances > {click on Instance ID} > "Connect to Instance" Button > "EC2 Instance Connect" tab)
+        For the newly created Instance, change the security group inbound and outbound rules so that they can recieve all TCP communication
 
     ### Install Terraform if it's not already installed
     ### In the project root directory, run the following commands
